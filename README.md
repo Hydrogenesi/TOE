@@ -1,3 +1,122 @@
+# TOE - Theory of Everything: Stellar Evolution Simulation
+
+[![TOE Stellar Evolution](https://github.com/Hydrogenesi/TOE/actions/workflows/blank.yml/badge.svg)](https://github.com/Hydrogenesi/TOE/actions/workflows/blank.yml)
+
+A Python-based stellar evolution simulation that models the evolution of stars through differential equations governing hydrostatic equilibrium, energy generation, and radiative transfer.
+
+## Features
+
+- **Stellar Structure Equations**: Implementation of hydrostatic equilibrium, energy generation, and radiative transfer
+- **Nuclear Reaction Rates**: Modeling of proton-proton chain and CNO cycle reactions
+- **Opacity Calculations**: Temperature and density dependent opacity functions
+- **Multi-Mass Simulations**: Compare evolution of stars with different masses
+- **Visualization**: Generate plots showing the evolution of density, luminosity, and temperature over time
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Hydrogenesi/TOE.git
+cd TOE
+```
+
+2. Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Run the stellar evolution simulation:
+```bash
+python stellar_evolution.py
+```
+
+This will:
+- Simulate stellar evolution for stars of 1, 5, and 25 solar masses
+- Generate plots showing the evolution of stellar properties
+- Save plots as PNG files in the current directory
+
+## Example Output
+
+The simulation generates plots showing:
+- **Density Evolution**: How stellar density changes over time
+- **Luminosity Evolution**: Changes in stellar energy output
+- **Temperature Evolution**: Core temperature variations
+- **Normalized Comparison**: Relative changes in all parameters
+
+## Scientific Background
+
+### Physical Constants
+- **G**: Gravitational constant (6.67408×10⁻¹¹ m³ kg⁻¹ s⁻²)
+- **c**: Speed of light (299,792,458 m/s)  
+- **a**: Radiation constant (7.5657×10⁻¹⁶ J m⁻³ K⁻⁴)
+
+### Stellar Structure Equations
+
+1. **Hydrostatic Equilibrium**:
+   ```
+   dP/dr = -ρGM/r²
+   ```
+   
+2. **Energy Generation**: 
+   ```
+   dL/dr = ε(ρ,T) dm
+   ```
+   
+3. **Radiative Transfer**:
+   ```
+   dT/dr = -3κρL/(16πacT³)
+   ```
+
+### Nuclear Reactions
+
+- **Proton-Proton Chain**: Rate ∝ T⁴ρ²
+- **CNO Cycle**: Rate ∝ T¹⁹ρ
+
+## Code Structure
+
+- `stellar_evolution.py`: Main simulation module containing:
+  - Physical constants and stellar structure functions
+  - Nuclear reaction rate calculations
+  - Opacity models
+  - ODE solver for stellar evolution
+  - Visualization and plotting functions
+
+- `requirements.txt`: Python dependencies (numpy, scipy, matplotlib)
+
+- `.github/workflows/blank.yml`: GitHub Actions CI/CD pipeline
+
+## Contributing
+
+This project simulates stellar evolution using simplified models. For more accurate astrophysical simulations, consider:
+
+- More sophisticated opacity tables
+- Detailed nuclear reaction networks
+- Convection models
+- Stellar wind effects
+- Binary star interactions
+
+## License
+
+Open source - feel free to use and modify for educational and research purposes.
+
+---
+
+## Original Research Notes
+
+This repository also contains additional theoretical materials:
+- `Additional Derivations for Key Equations.docx`: Mathematical derivations
+- `v000_000_8_1 The End of Infinitys Darkness.docx`: Theoretical framework
+- `Carolina_Connection`: Related research materials
+
+## Previous Code (Archived)
+
+The original code snippets have been preserved below for reference:
+
+<details>
+<summary>Click to expand original README content</summary>
+
 ## Constants 
 G = 6.67408e-11  # Gravitational constant 
 """ 
@@ -247,3 +366,4 @@ Time Points	t = np.linspace(0, 1e10, 1000)
 Stellar Masses	M_values = [1e30, 5e30, 1e31]
 Docstring Assistance	Gravitational constant, Speed of light, Radiation constant
 
+</details>
