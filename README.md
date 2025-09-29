@@ -247,3 +247,23 @@ Time Points	t = np.linspace(0, 1e10, 1000)
 Stellar Masses	M_values = [1e30, 5e30, 1e31]
 Docstring Assistance	Gravitational constant, Speed of light, Radiation constant
 
+    return [1e3, 1e26, 1e7]
+## Time Points
+t = np.linspace(0, 1e10, 1000)      
+## Stellar Masses
+M_values = [1e30, 5e30, 1e31]   
+## Solve ODE and Plot Results
+for M in M_values:
+    state0 = initial_conditions(M)
+    solution = odeint(stellar_evolution, state0, t, args=(M,))
+    plt.figure(figsize=(10, 6))
+    plt.plot(t, solution[:, 0], label='Density')
+    plt.plot(t, solution[:, 1], label='Luminosity')
+    plt.plot(t, solution[:, 2], label='Temperature')
+    plt.xlabel('Time')
+    plt.ylabel('Value')
+    plt.title(f'Stellar Evolution (M={M})')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+        
