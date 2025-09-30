@@ -1,6 +1,6 @@
 import numpy as np from scipy.integrate import odeint 
 import matplotlib.pyplot as plt 
- 
+
 ## Constants 
 G = 6.67408e-11  # Gravitational constant c = 299792458   # Speed of light 
 a = 7.5657e-16  # Radiation constant 
