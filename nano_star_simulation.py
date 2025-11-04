@@ -27,6 +27,54 @@ state_history = []
 magnetic_field_history = []
 conductivity_history = []
 
+# --- Quantumonix Parameters ---
+class Proton:
+    def __init__(self, id, lineage):
+        self.id = id
+        self.lineage = lineage
+        self.entangled_with = None
+
+proton_lineage = []
+bifurcation_depth = 3  # The maximum depth of the recursive split
+
+def hydrogen_split(proton, current_depth, max_depth):
+    """
+    Recursively splits a proton, creating a lineage of new protons.
+    """
+    if current_depth >= max_depth:
+        return
+
+    # Create two new entangled protons
+    proton1 = Proton(f"{proton.id}-1", proton.lineage + [proton.id])
+    proton2 = Proton(f"{proton.id}-2", proton.lineage + [proton.id])
+
+    # Entangle the protons
+    proton1.entangled_with = proton2
+    proton2.entangled_with = proton1
+
+    proton_lineage.append(proton1)
+    proton_lineage.append(proton2)
+
+    # Recursively split the new protons
+    hydrogen_split(proton1, current_depth + 1, max_depth)
+    hydrogen_split(proton2, current_depth + 1, max_depth)
+
+
+def print_mythic_insert(state, time_step):
+    """
+    Prints narrative inserts based on the current state of the simulation.
+    """
+    if state == 0 and time_step == 0:
+        print("--- CUE CARD: The Genesis Atom ---")
+        print("In the beginning, there was a single hydrogen atom, a protostar's seed.")
+    elif state == 1 and state_history[time_step - 1] == 0:
+        print("\n--- CUE CARD: The Metallic Transformation ---")
+        print("Under immense pressure, the hydrogen cluster transforms into a metallic state.")
+    elif state == 2 and state_history[time_step - 1] == 1:
+        print("\n--- CUE CARD: The Brown Dwarf Awakens ---")
+        print("The nano-star evolves into a brown dwarf, a crucible of quantum phenomena.")
+        print("\n--- MYTHIC INSERT: The Phoenix Quantumonix ---")
+        print("The hydrogen atom splits, birthing entangled protons in a recursive dance.")
 
 def simulate_protostar_phase(current_atoms):
     """
@@ -53,6 +101,7 @@ def simulate_brown_dwarf_phase(current_atoms, time_step):
 # --- Simulation Loop ---
 current_atoms = initial_hydrogen_atoms
 for t in range(time_steps):
+    print_mythic_insert(star_state, t)
     atom_count_history.append(current_atoms)
     state_history.append(star_state)
 
@@ -77,13 +126,34 @@ for t in range(time_steps):
         magnetic_field_history.append(magnetic_field)
         conductivity_history.append(conductivity)
 
+        # Initiate the hydrogen split when the brown dwarf phase begins
+        if len(proton_lineage) == 0:
+            initial_proton = Proton("P0", [])
+            proton_lineage.append(initial_proton)
+            hydrogen_split(initial_proton, 0, bifurcation_depth)
+
 
 # --- Visualization ---
-fig, axs = plt.subplots(3, 1, figsize=(10, 15))
+def plot_fractal_tree(ax, proton, x, y, angle, length, depth):
+    if depth == 0:
+        return
+
+    x_end = x + length * np.cos(np.radians(angle))
+    y_end = y + length * np.sin(np.radians(angle))
+
+    ax.plot([x, x_end], [y, y_end], 'w-')
+
+    children = [p for p in proton_lineage if p.lineage[-1] == proton.id]
+    if len(children) == 2:
+        plot_fractal_tree(ax, children[0], x_end, y_end, angle - 30, length * 0.7, depth - 1)
+        plot_fractal_tree(ax, children[1], x_end, y_end, angle + 30, length * 0.7, depth - 1)
+
+fig, axs = plt.subplots(4, 1, figsize=(10, 20))
 
 # Plot Atom Count
 axs[0].plot(atom_count_history, label='Number of Hydrogen Atoms')
 axs[0].axhline(y=metallic_threshold, color='r', linestyle='--', label='Metallic Threshold')
+axs[0].text(time_steps / 2, metallic_threshold + 50, 'Transformation Threshold', color='r')
 axs[0].set_xlabel('Time Steps')
 axs[0].set_ylabel('Number of Atoms')
 axs[0].set_title('Nano-Star Growth')
@@ -108,6 +178,15 @@ axs[2].set_ylabel('Magnitude')
 axs[2].set_title('Brown Dwarf Properties')
 axs[2].legend()
 axs[2].grid(True)
+
+# Plot Fractal Tree
+if proton_lineage:
+    axs[3].set_facecolor('black')
+    axs[3].set_title('Bifurcation Lineage')
+    initial_proton = proton_lineage[0]
+    plot_fractal_tree(axs[3], initial_proton, 0, 0, 90, 1, bifurcation_depth)
+    axs[3].set_aspect('equal', adjustable='box')
+    axs[3].axis('off')
 
 plt.tight_layout()
 plt.savefig('nano_star_evolution.png')
