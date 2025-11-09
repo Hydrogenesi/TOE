@@ -143,7 +143,7 @@ def plot_fractal_tree(ax, proton, x, y, angle, length, depth):
 
     ax.plot([x, x_end], [y, y_end], 'w-')
 
-    children = [p for p in proton_lineage if p.lineage[-1] == proton.id]
+    children = [p for p in proton_lineage if p.lineage and p.lineage[-1] == proton.id]
     if len(children) == 2:
         plot_fractal_tree(ax, children[0], x_end, y_end, angle - 30, length * 0.7, depth - 1)
         plot_fractal_tree(ax, children[1], x_end, y_end, angle + 30, length * 0.7, depth - 1)
