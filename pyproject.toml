@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "stellar-evolution-toe"
+version = "0.1.0"
+description = "Stellar evolution simulation based on Theory of Everything (TOE) framework"
+authors = ["Hydrogenesi <your-email@example.com>"]
+readme = "README.md"
+packages = [{include = "stellar_evolution"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.25"
+scipy = "^1.11"
+matplotlib = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+black = "^23.0"
+flake8 = "^6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+stellar-sim = "Carolina_Connection:main"

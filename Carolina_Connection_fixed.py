@@ -161,40 +161,25 @@ t = np.linspace(1e5, 1e10, 1000)
 ## Stellar Masses
 M_values = [1e30, 5e30, 1e31]
 
-def run_stellar_simulation(mass):
-    """
-    Run stellar evolution simulation for a given mass.
-    
-    Args:
-        mass (float): Stellar mass in kg
-    """
-    state0 = initial_conditions(mass)
-    try:
-        solution = odeint(stellar_evolution, state0, t, args=(mass,))
-        
-        plt.figure(figsize=(10, 6))
-        plt.plot(t, solution[:, 0], label='Density')
-        plt.plot(t, solution[:, 1], label='Luminosity')
-        plt.plot(t, solution[:, 2], label='Temperature')
-        plt.xlabel('Time (s)')
-        plt.ylabel('Value')
-        plt.title(f'Stellar Evolution (M={mass:.1e} kg)')
-        plt.legend()
-        plt.tight_layout()
-        plt.show()
-        
-        return solution
-    except Exception as e:
-        print(f"Error solving ODE for M={mass}: {e}")
-        return None
-
 ## Solve ODE and Plot Results
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="Ignite stellar evolution simulation")
-    parser.add_argument("--mass", type=float, default=1e30, help="Stellar mass in kg")
-    args = parser.parse_args()
-    run_stellar_simulation(args.mass)
+    for M in M_values:
+        state0 = initial_conditions(M)
+        try:
+            solution = odeint(stellar_evolution, state0, t, args=(M,))
+            
+            plt.figure(figsize=(10, 6))
+            plt.plot(t, solution[:, 0], label='Density')
+            plt.plot(t, solution[:, 1], label='Luminosity')
+            plt.plot(t, solution[:, 2], label='Temperature')
+            plt.xlabel('Time (s)')
+            plt.ylabel('Value')
+            plt.title(f'Stellar Evolution (M={M:.1e} kg)')
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
+        except Exception as e:
+            print(f"Error solving ODE for M={M}: {e}")
 
 """
 === DOCUMENTATION AND THEORETICAL FRAMEWORK ===

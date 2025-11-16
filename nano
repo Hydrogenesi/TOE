@@ -1,0 +1,16 @@
+notepad nano
+notepad nano.py
+python -m py_compile nano.py
+python nano.py
+python nano.py --help
+
+python -m py_compile nano_star_simulation.py
+
+
+python nano_star_simulation.py --help
+python -m py_compile nano_star_simulation.py
+
+
+python nano_star_simulation.py --help
+python nano_star_simulation.py --help
+
