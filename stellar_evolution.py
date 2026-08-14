@@ -116,7 +116,7 @@ def main_sequence_lifetime(M: float, L: float) -> float:
     Returns:
         float: Main sequence lifetime (s)
     """
-    return M / L
+    return 0.1 * 0.007 * M * c**2 / L
 
 
 def stellar_evolution(state: list, t: float, M: float) -> list:
