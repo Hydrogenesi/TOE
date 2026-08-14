@@ -2,7 +2,7 @@
 
 [![TOE Stellar Evolution](https://github.com/Hydrogenesi/TOE/actions/workflows/blank.yml/badge.svg)](https://github.com/Hydrogenesi/TOE/actions/workflows/blank.yml)
 
-A Python-based stellar evolution simulation that models the evolution of stars through differential equations governing hydrostatic equilibrium, energy generation, and radiative transfer.
+A Python-based stellar evolution simulation that illustrates simplified time-evolution and includes reference functions for hydrostatic equilibrium, energy generation, and radiative transfer.
 
 ## Features
 
