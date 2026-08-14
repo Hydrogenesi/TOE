@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 # Constants
 G = 6.67408e-11  # Gravitational constant (m^3 kg^-1 s^-2)
+MIN_RADIUS = 1.0  # Minimum radius floor (m) to prevent division by zero
 c = 299792458    # Speed of light (m/s)
 a = 7.5657e-16   # Radiation constant (J/m^3K^4)
 
@@ -28,6 +29,7 @@ def hydrostatic_equilibrium(rho: float, M: float, r: float) -> float:
     Returns:
         float: Hydrostatic equilibrium value (Pa/m)
     """
+    r = max(r, MIN_RADIUS)  # Floor to avoid singularity at r=0
     return -rho * G * M / r**2
 
 
@@ -43,7 +45,7 @@ def energy_generation(rho: float, epsilon: float, dM: float) -> float:
     Returns:
         float: Energy generation value (W)
     """
-    return epsilon * rho * dM
+    return epsilon * dM
 
 
 def radiative_transfer(kappa: float, rho: float, L: float, r: float, T: float) -> float:
@@ -138,11 +140,6 @@ def stellar_evolution(state: list, t: float, M: float) -> list:
     rho = max(rho, 1e-10)
     L = max(L, 1e10)
     T = max(T, 1e3)
-    
-    # Use a more realistic radius evolution model
-    # For simplicity, assume R ~ (M/rho)^(1/3)
-    R = (3 * M / (4 * np.pi * rho))**(1/3)
-    R = max(R, 1e3)  # Minimum radius to avoid singularities
     
     # More stable derivatives with physical limits
     # Simple stellar structure equations
