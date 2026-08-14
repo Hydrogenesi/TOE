@@ -58,9 +58,10 @@ def radiative_transfer(kappa: float, rho: float, L: float, r: float, T: float) -
         T (float): Temperature (K)
     
     Returns:
-        float: Radiative transfer value (W/m^2)
+        float: Temperature gradient dT/dr (K/m)
     """
-    return -3 * kappa * rho * L / (16 * np.pi * a * c * T**3)
+    r = max(r, 1e-10)
+    return -3 * kappa * rho * L / (16 * np.pi * a * c * T**3 * r**2)
 
 
 def proton_proton_chain(T: float, rho: float) -> float:
