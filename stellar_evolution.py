@@ -267,6 +267,5 @@ def simulate_stellar_evolution(save_plots=False):
 
 
 if __name__ == "__main__":
-    import matplotlib
-    matplotlib.use('Agg')  # Use non-interactive backend for headless environments
+    plt.switch_backend("Agg")  # Use non-interactive backend for headless environments
     simulate_stellar_evolution(save_plots=True)
