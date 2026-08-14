@@ -6,8 +6,8 @@ A Python-based stellar evolution simulation that models the evolution of stars t
 
 ## Features
 
-- **Stellar Structure Equations**: Implementation of hydrostatic equilibrium, energy generation, and radiative transfer
-- **Nuclear Reaction Rates**: Modeling of proton-proton chain and CNO cycle reactions
+- **Stellar Structure Equations**: Reference functions for hydrostatic equilibrium, energy generation, and radiative transfer
+- **Nuclear Reaction Rates**: Reference rate functions for proton-proton chain and CNO cycle reactions
 - **Opacity Calculations**: Temperature and density dependent opacity functions
 - **Multi-Mass Simulations**: Compare evolution of stars with different masses
 - **Visualization**: Generate plots showing the evolution of density, luminosity, and temperature over time
